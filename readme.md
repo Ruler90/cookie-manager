@@ -1,7 +1,9 @@
 # Cookie Manager
 
-Customizable Cookie Manager where you can put just the cookies that you usually modify (e.g. for development purposes).  
-Cookie Manager can be used as a Bookmarklet (browser bookmark the executes JavaScript code) so you can quickly run it in every browser.
+Customizable Cookie Manager, where you can put just the cookies that you usually modify (e.g. for development purposes).  
+Cookie Manager can be used as a Bookmarklet (browser bookmark that executes JavaScript code) so you can quickly run it in any browser.
+
+![Screenshot](./cookie-manager.jpg)
 
 ## Quick start
 
@@ -23,8 +25,8 @@ To use Cookie Manager, simply:
 - Dark overlay covering the page as long as Cookie Manager is open.
 - Desktop and mobile view.
 - Hovering over the "Cookie Manager" name shows the app version.
-- Hovering over the header buttons shows the description what they do.
-- Hovering over the cookie name shows what the cookie do (if a description exists).
+- Hovering over the header buttons will display a description of what they do.
+- Hovering over the cookie name shows what the cookie does (if a description exists).
 
 ## Development
 
@@ -37,14 +39,14 @@ To use Cookie Manager, simply:
 - Update the app version in `package.json` - it is fetched from there and inserted into the `title` in the header.
 - Webpack will regenerate the [main.bundle.js](build/main.bundle.js) file with minified code on every change.
 - Copy the content of that file, then open [bookmarklet.js](build/bookmarklet.js), add `javascript:` at the beginning and paste the minified code.
-- Now you developed your customized version of Cookie Manager and you can use it as in the [Quick Start](#quick-start) section.
+- Now you have developed your customized version of Cookie Manager and you can use it as described in the [Quick Start](#quick-start) section.
 
 ## Final Notes
 
 - The first version of this project was released on the 14th of October 2022.
-- Cookie Manager JS/TS code is an IIFE function, allowing it to be executed multiple times without reloading the page. If it were a regular function + its invocation, using it a second time would show an error that we are trying to declare the function again.
-- If Cookie Manager does not appear on the page, and subsequent clicks indicate it is already running, check if page elements don't have higher `z-indexes` than Cookie Manager. In that case they could simply cover the app.
-- I tried using emotion (CSS-in-JS) here but it generated too much boilerplate, so I stuck with plain Sass to include as little code in the bookmarklet as possible while being able to divide styles for code organization purpose. Webpack recognizes .css files thanks to:
+- The Cookie Manager JS/TS code is an IIFE function, which allows it to be executed multiple times without reloading the page. If it were a regular function + its call, using it a second time would result in an error that we are trying to re-declare the function.
+- If Cookie Manager doesn't appear on the page, and subsequent clicks indicate it's already running, check if page elements don't have higher `z-indexes` than Cookie Manager. In this case they may simply cover the app.
+- I tried using emotion (CSS-in-JS) here but it generated too much boilerplate, so I stuck with plain Sass to include as little code in the bookmarklet as possible while being able to split styles for code organization purposes. Webpack recognizes .css files thanks to:
     ```js
     {
         test: /\.css/,
