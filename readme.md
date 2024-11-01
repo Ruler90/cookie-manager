@@ -3,7 +3,7 @@
 Customizable Cookie Manager, where you can put just the cookies that you usually modify (e.g. for development purposes).  
 Cookie Manager can be used as a Bookmarklet (browser bookmark that executes JavaScript code) so you can quickly run it in any browser.
 
-![Screenshot](./cookie-manager-v2.jpg)
+![Screenshot](./cookie-manager-v3.jpg)
 
 ## Quick start
 
