@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "rootDir": "./src",
+        "outDir": "./dist",
+        "target": "esnext",
+        "moduleResolution": "node",
+        "module": "esnext",
+        "strict": true,
+        "removeComments": true,
+        "alwaysStrict": false,
+    },
+}
