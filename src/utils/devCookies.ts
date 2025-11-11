@@ -24,7 +24,6 @@ export const devCookiesList: devCookie[] = [
     {
         name: 'cookieWith3Values',
         values: ['1', '2', '3'],
-        description: `some description for cookieWith3Values displayed on hover`,
+        description: 'some description for cookieWith3Values displayed on hover',
     },
-
 ];

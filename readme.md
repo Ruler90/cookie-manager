@@ -30,26 +30,21 @@ To use Cookie Manager, simply:
 
 ## Development
 
+- Works with Node `22.12.0`
 - `npm i`
-- `npm run start`
-- Webpack Dev Server will launch, allowing you to see changes live. After closing Cookie Manager, refresh the page to make it appear again.
+- `npm run dev`
+- Vite will launch, allowing you to see changes live. After closing Cookie Manager, refresh the page to make it appear again.
 - The entire mechanism is based on the [devCookiesList](src/utils/devCookies.ts) variable, which you modify as needed. The content of Cookie Manager is generated based on that file.
-- You can find styles (.scss partials) for different parts of Cookie Manager are inside the folders with the components. All of them are imported into the main [styles.module.scss](src/styles/styles.module.scss) file, which is compiled into a .css file and imported in [index.ts](src/index.ts).
+- The styles (.scss partials) for different parts of Cookie Manager are located inside the components folders. All of them are imported into the main [styles.module.scss](src/styles/styles.module.scss) file, which is compiled into a .css file and imported in [app.ts](src/app.ts).
 - I used as little styling as possible so Cookie Manager should, for example, use the fonts used on a site where you ran the app. If there are any inconsistencies or something is not right, you can update the styles to meet your expectations.
-- Update the app version in `package.json` - it is fetched from there and inserted into the `title` in the header.
-- Webpack will regenerate the [main.bundle.js](build/main.bundle.js) file with minified code on every change.
-- Copy the content of that file, then open [bookmarklet.js](build/bookmarklet.js), add `javascript:` at the beginning and paste the minified code.
+- Update the app version in `package.json`. This will be reflected in the app's header (on hover).
+- Use `npm run build` to check the code with TypeScript and ESLint and generate the [bookmarklet.js](dist/bookmarklet.js) file with minified code. The `javascript:` string at the beginning is added automatically.
+- The project should be type-safe so the bookmarklet will not be generated if there are any TS errors, unless you explicitly use `//@ts-nocheck` in a .ts file.
 - Now you have developed your customized version of Cookie Manager and you can use it as described in the [Quick Start](#quick-start) section.
 
 ## Final Notes
 
 - The first version of this project was released on the 14th of October 2022.
-- The Cookie Manager JS/TS code is an IIFE function, which allows it to be executed multiple times without reloading the page. If it were a regular function + its call, using it a second time would result in an error that we are trying to re-declare the function.
-- If Cookie Manager doesn't appear on the page, and subsequent clicks indicate it's already running, check if page elements don't have higher `z-indexes` than Cookie Manager. In this case they may simply cover the app.
-- I tried using emotion (CSS-in-JS) here but it generated too much boilerplate, so I stuck with plain Sass to include as little code in the bookmarklet as possible while being able to split styles for code organization purposes. Webpack recognizes .css files thanks to:
-    ```js
-    {
-        test: /\.css/,
-        type: 'asset/source',
-    },
-    ```
+- The Cookie Manager JS/TS code is an IIFE function, which allows it to be executed multiple times without reloading the page. If it was a regular function + its call, using it a second time would result in an error that we are trying to re-declare the function.
+- If Cookie Manager doesn't appear on the page, and subsequent clicks indicate it's already running, check if page elements don't have higher `z-indexes` than Cookie Manager. In this case they may simply cover the app and you should adjust the styles.
+- I tried using emotion (CSS-in-JS) here but it generated too much boilerplate, so I stuck with plain Sass to include as little code in the bookmarklet as possible while being able to split styles for code organization purposes.

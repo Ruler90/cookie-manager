@@ -1,5 +1,5 @@
 import { cookieManagerSkeleton } from './components/CookieManagerSkeleton.component';
-import styles from './styles/styles.module.css';
+import styles from './styles/styles.module.css?raw';
 import { refresh } from './components/Header/RefreshBtn.component';
 import { deleteDevCookies } from './components/Header/RemoveBtn.component';
 import { closeCookieManager } from './components/Header/CloseBtn.component';

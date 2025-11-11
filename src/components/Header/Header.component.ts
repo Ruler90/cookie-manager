@@ -1,8 +1,9 @@
 import { closeBtn } from './CloseBtn.component';
 import { refreshBtn } from './RefreshBtn.component';
 import { removeBtn } from './RemoveBtn.component';
+import * as pkg from '../../../package.json';
 
-const version = require('../../../package.json').version;
+const version = pkg.version;
 
 export const header = `
     <header class="mw-cm__header">
