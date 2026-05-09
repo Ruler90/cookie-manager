@@ -1,28 +1,18 @@
 import { devCookie } from '../types/types';
+import defaultCookies from '../config/defaultCookies.json';
 
-const STORAGE_KEY = 'mw-cm-cookies';
+let sessionConfig: devCookie[] = window.__CM_CONFIG__ ?? (defaultCookies as devCookie[]);
 
-const defaultConfig: devCookie[] = [
-    {
-        name: 'example',
-        values: ['true'],
-        description: 'Example cookie — edit or replace via the gear button',
-    },
-];
+export const loadCookies = (): devCookie[] => sessionConfig;
 
-export const loadCookies = (): devCookie[] => {
-    try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored !== null) {
-            const parsed = JSON.parse(stored) as unknown;
-            if (Array.isArray(parsed)) return parsed as devCookie[];
-        }
-    } catch {
-        // corrupted JSON — fall through to default
-    }
-    return defaultConfig;
+export const updateCookies = (cookies: devCookie[]): void => {
+    sessionConfig = cookies;
 };
 
-export const saveCookies = (cookies: devCookie[]): void => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(cookies));
+export const generateBookmarkletUrl = (cookies: devCookie[]): string | null => {
+    const template = window.__CM_BOOKMARKLET_TEMPLATE__;
+    if (!template) return null;
+    const config = JSON.stringify(cookies);
+    const templateStr = JSON.stringify(template);
+    return `javascript:(()=>{const _C=${config};const _S=${templateStr};window.__CM_CONFIG__=_C;window.__CM_BOOKMARKLET_TEMPLATE__=_S;${template}})()`;
 };

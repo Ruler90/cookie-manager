@@ -1,11 +1,12 @@
 {
   "name": "cookie-manager",
   "private": true,
-  "version": "2.0.0",
+  "version": "2.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run check && vite build",
+    "build": "npm run check && vite build && node scripts/wrap-bookmarklet.mjs",
+    "template": "vite build && node scripts/wrap-bookmarklet.mjs",
     "css": "sass src/styles/styles.scss src/styles/styles.css --no-source-map",
     "lint": "eslint . --ext .ts",
     "ts": "tsc --noEmit",

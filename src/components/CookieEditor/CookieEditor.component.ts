@@ -1,5 +1,5 @@
 import { devCookie } from '../../types/types';
-import { loadCookies, saveCookies } from '../../utils/cookieStorage';
+import { loadCookies, updateCookies, generateBookmarkletUrl } from '../../utils/cookieStorage';
 
 const CE = 'mw-ce';
 
@@ -217,8 +217,54 @@ export function openCookieEditor(onSave: () => void): void {
     acceptBtn.addEventListener('click', () => {
         const newConfig = collectAndValidate(body);
         if (!newConfig) return;
-        saveCookies(newConfig);
+        updateCookies(newConfig);
         onSave();
-        destroy();
+        const newUrl = generateBookmarkletUrl(newConfig);
+        if (newUrl) {
+            showBookmarkUpdater(panel, newUrl, destroy);
+        } else {
+            destroy();
+        }
     });
+}
+
+function showBookmarkUpdater(panel: HTMLDivElement, newUrl: string, onClose: () => void): void {
+    panel.innerHTML = '';
+
+    const header = el('header', `${CE}__header`);
+    const title = el('h2', `${CE}__title`);
+    title.textContent = 'Update your bookmark';
+    header.appendChild(title);
+
+    const body = el('div', `${CE}__body`);
+
+    const info = el('p', `${CE}__updater-info`);
+    info.textContent =
+        'Config saved for this session. To use it on every page and in incognito, copy the URL below and replace your bookmark with it.';
+
+    const urlBox = el('textarea', `${CE}__updater-url`);
+    urlBox.readOnly = true;
+    urlBox.value = newUrl;
+    urlBox.rows = 4;
+
+    const copyBtn = el('button', `${CE}__updater-copy-btn`);
+    copyBtn.type = 'button';
+    copyBtn.textContent = 'Copy to clipboard';
+    copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(newUrl).then(() => {
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => { copyBtn.textContent = 'Copy to clipboard'; }, 2000);
+        });
+    });
+
+    body.append(info, urlBox, copyBtn);
+
+    const footer = el('footer', `${CE}__footer`);
+    const closeBtn = el('button', `${CE}__accept-btn`);
+    closeBtn.type = 'button';
+    closeBtn.textContent = 'Done';
+    closeBtn.addEventListener('click', onClose);
+    footer.appendChild(closeBtn);
+
+    panel.append(header, body, footer);
 }
