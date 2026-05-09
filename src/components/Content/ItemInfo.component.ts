@@ -1,9 +1,8 @@
-import { devCookie } from '../../types/types';
 import { getSiteCookies } from '../../utils/siteCookies';
 
-export const showCookieValue = (cookie: devCookie, node: HTMLElement): void => {
+export const showCookieValue = (cookieName: string, node: HTMLElement): void => {
     const valueEl = node.querySelector('.js-mw-cm-item-value')!;
-    const match = getSiteCookies().find((siteCookie) => siteCookie.name === cookie.name);
+    const match = getSiteCookies().find((siteCookie) => siteCookie.name === cookieName);
     valueEl.textContent = match?.value ?? 'No cookie';
 };
 

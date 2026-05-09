@@ -1,14 +1,13 @@
-import { devCookie } from '../../types/types';
 import { showCookieValue } from './ItemInfo.component';
 
-export const addCookie = (cookie: devCookie, index: number, node: HTMLElement): void => {
-    document.cookie = `${cookie.name}=${cookie.values[index]}; path=/`;
-    showCookieValue(cookie, node);
+export const addCookie = (cookieName: string, cookieValue: string, node: HTMLElement): void => {
+    document.cookie = `${cookieName}=${cookieValue}; path=/`;
+    showCookieValue(cookieName, node);
 };
 
-export const deleteCookie = (cookie: devCookie, node: HTMLElement): void => {
-    document.cookie = `${cookie.name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
-    showCookieValue(cookie, node);
+export const deleteCookie = (cookieName: string, node: HTMLElement): void => {
+    document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+    showCookieValue(cookieName, node);
 };
 
 export const itemButtons = (devCookieValues: string[]): string => {
