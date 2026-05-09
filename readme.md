@@ -41,7 +41,7 @@ Each cookie entry has three fields:
 | **Description** | Optional tooltip shown when hovering the cookie name in the main panel. |
 | **Values** | One or more preset values shown as pills. Press **Enter** to add a new value; click **×** to remove one. |
 
-Use **+ Add cookie** to append a new entry. Use **Delete cookie** to remove one. Click **Cancel** or press **Escape** to discard changes.
+Use **+ Add cookie** to append a new entry. Use **Delete cookie** to remove one. **Drag the grip handle** (⠿) on the left side of an entry to reorder cookies. Click **Cancel** or press **Escape** to discard changes.
 
 Clicking **Accept** re-renders the main panel with the new config for the current session and then shows a **"Update your bookmark"** screen with a new `javascript:` URL containing your config embedded in the code. Copy that URL and replace your bookmark with it — the new bookmark will carry your config everywhere.
 
@@ -86,4 +86,5 @@ Update the version in `package.json`. It is automatically read and displayed in 
 - The bookmarklet stores its own minified source as a string (`window.__CM_BOOKMARKLET_TEMPLATE__`). When config changes, that string is used to construct the next URL, carrying itself forward. No `localStorage`, no server, no file format needed.
 - Cookie Manager is wrapped in an IIFE so clicking the bookmark multiple times on the same page does not cause re-declaration errors - it simply shows an alert if an instance is already open.
 - If Cookie Manager does not appear after clicking the bookmark, check whether page elements have higher `z-index` values than the overlay (`1000000`) and panel (`1000001`). Adjust the values in `_CookieManager.styles.scss` if needed.
+- `public/bookmarklet-template.js` is a dev-only file loaded by `index.html` so the "Update your bookmark" flow works during `npm run dev`. A placeholder is committed so fresh clones don't 404. Because Vite copies everything in `public/` to `dist/` during the build, a copy also appears in `dist/` — it can be ignored, the only meaningful output is `dist/bookmarklet.js`.
 - Emotion (CSS-in-JS) was considered but rejected - it added too much boilerplate to the bookmarklet. Plain Sass with `?inline` keeps the output small while still allowing organised, split stylesheets.

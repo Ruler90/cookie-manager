@@ -26,6 +26,17 @@ function buildPill(value: string): HTMLDivElement {
     return pill;
 }
 
+function buildDragHandle(): HTMLDivElement {
+    const handle = el('div', `${CE}__drag-handle`);
+    handle.setAttribute('aria-label', 'Drag to reorder');
+    handle.innerHTML = `<svg width="12" height="18" viewBox="0 0 12 18" fill="currentColor" aria-hidden="true">
+        <circle cx="3" cy="3" r="1.5"/><circle cx="9" cy="3" r="1.5"/>
+        <circle cx="3" cy="9" r="1.5"/><circle cx="9" cy="9" r="1.5"/>
+        <circle cx="3" cy="15" r="1.5"/><circle cx="9" cy="15" r="1.5"/>
+    </svg>`;
+    return handle;
+}
+
 function buildEntry(cookie: devCookie): HTMLDivElement {
     const entry = el('div', `${CE}__entry`);
 
@@ -90,8 +101,70 @@ function buildEntry(cookie: devCookie): HTMLDivElement {
     deleteBtn.textContent = 'Delete cookie';
     deleteBtn.addEventListener('click', () => entry.remove());
 
-    entry.append(nameField, descField, valuesSection, errorSpan, deleteBtn);
+    const content = el('div', `${CE}__entry-content`);
+    content.append(nameField, descField, valuesSection, errorSpan, deleteBtn);
+    entry.append(buildDragHandle(), content);
     return entry;
+}
+
+function setupDragReorder(body: HTMLElement): void {
+    let dragged: HTMLElement | null = null;
+    let indicator: HTMLElement | null = null;
+    let dropAbove = true;
+    let pendingDraggable: HTMLElement | null = null;
+
+    body.addEventListener('mousedown', (e) => {
+        const handle = (e.target as HTMLElement).closest<HTMLElement>(`.${CE}__drag-handle`);
+        if (!handle) return;
+        const entry = handle.closest<HTMLElement>(`.${CE}__entry`);
+        if (entry) { entry.draggable = true; pendingDraggable = entry; }
+    });
+
+    body.addEventListener('mouseup', () => {
+        if (pendingDraggable && !dragged) pendingDraggable.draggable = false;
+        pendingDraggable = null;
+    });
+
+    body.addEventListener('dragstart', (e) => {
+        const entry = (e.target as HTMLElement).closest<HTMLElement>(`.${CE}__entry`);
+        if (!entry?.draggable) { e.preventDefault(); return; }
+        dragged = entry;
+        entry.classList.add(`${CE}__entry--dragging`);
+        e.dataTransfer!.effectAllowed = 'move';
+    });
+
+    body.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        const entry = (e.target as HTMLElement).closest<HTMLElement>(`.${CE}__entry`);
+        if (!entry || entry === dragged) return;
+        clearIndicator();
+        const rect = entry.getBoundingClientRect();
+        dropAbove = e.clientY < rect.top + rect.height / 2;
+        indicator = entry;
+        entry.classList.add(dropAbove ? `${CE}__entry--drop-above` : `${CE}__entry--drop-below`);
+        e.dataTransfer!.dropEffect = 'move';
+    });
+
+    body.addEventListener('drop', (e) => {
+        e.preventDefault();
+        if (!dragged || !indicator) return;
+        if (dropAbove) body.insertBefore(dragged, indicator);
+        else indicator.after(dragged);
+        clearIndicator();
+    });
+
+    body.addEventListener('dragend', () => {
+        if (dragged) { dragged.classList.remove(`${CE}__entry--dragging`); dragged.draggable = false; dragged = null; }
+        pendingDraggable = null;
+        clearIndicator();
+    });
+
+    function clearIndicator() {
+        if (indicator) {
+            indicator.classList.remove(`${CE}__entry--drop-above`, `${CE}__entry--drop-below`);
+            indicator = null;
+        }
+    }
 }
 
 function collectAndValidate(body: HTMLElement): devCookie[] | null {
@@ -186,6 +259,7 @@ export function openCookieEditor(onSave: () => void): void {
         entry.querySelector<HTMLInputElement>(`.${CE}__input--name`)?.focus();
     });
     body.appendChild(addCookieBtn);
+    setupDragReorder(body);
 
     // Footer
     const footer = el('footer', `${CE}__footer`);
