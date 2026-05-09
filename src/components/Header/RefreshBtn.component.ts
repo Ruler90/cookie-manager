@@ -1,6 +1,3 @@
-export const refresh = () => location.reload();
-
-// Refresh btn icon
 export const refreshBtn = `
     <svg class="mw-cm__header-refresh-btn-img" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clip-path="url(#clip0_1201_2)">

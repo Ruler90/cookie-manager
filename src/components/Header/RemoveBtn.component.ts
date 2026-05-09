@@ -1,9 +1,3 @@
-export const deleteDevCookies = () => {
-    const removeBtns: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.mw-cm-item__btn--remove');
-    removeBtns.forEach((item) => item.click());
-};
-
-// Remove btn icon
 export const removeBtn = `
     <svg
         class="mw-cm__header-remove-btn-img"
