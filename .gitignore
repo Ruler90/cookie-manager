@@ -1,4 +1,4 @@
 node_modules/
-dist/
+dist/bookmarklet-template.js
 .DS_Store
 *.local
