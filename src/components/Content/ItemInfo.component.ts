@@ -2,7 +2,8 @@ import { getSiteCookies } from '../../utils/siteCookies';
 import { escapeHtml } from '../../utils/escapeHtml';
 
 export const showCookieValue = (cookieName: string, node: HTMLElement): void => {
-    const valueEl = node.querySelector('.js-mw-cm-item-value')!;
+    const valueEl = node.querySelector('.js-mw-cm-item-value');
+    if (!valueEl) return;
     const match = getSiteCookies().find((siteCookie) => siteCookie.name === cookieName);
     valueEl.textContent = match?.value ?? 'No cookie';
 };

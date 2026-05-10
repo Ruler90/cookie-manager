@@ -5,7 +5,7 @@ const CE = 'mw-ce';
 
 function el<K extends keyof HTMLElementTagNameMap>(tag: K, className?: string): HTMLElementTagNameMap[K] {
     const element = document.createElement(tag);
-    if (className) element.className = className;
+    if (className) element.classList.add(...className.split(' '));
     return element;
 }
 
@@ -181,10 +181,11 @@ function collectAndValidate(body: HTMLElement): devCookie[] | null {
     const cookies: devCookie[] = [];
 
     entries.forEach((entry) => {
-        const nameInput = entry.querySelector<HTMLInputElement>(`.${CE}__input--name`)!;
-        const descInput = entry.querySelector<HTMLInputElement>(`.${CE}__input--desc`)!;
-        const pillsContainer = entry.querySelector<HTMLElement>(`.${CE}__pills`)!;
-        const errorSpan = entry.querySelector<HTMLElement>(`.${CE}__error`)!;
+        const nameInput = entry.querySelector<HTMLInputElement>(`.${CE}__input--name`);
+        const descInput = entry.querySelector<HTMLInputElement>(`.${CE}__input--desc`);
+        const pillsContainer = entry.querySelector<HTMLElement>(`.${CE}__pills`);
+        const errorSpan = entry.querySelector<HTMLElement>(`.${CE}__error`);
+        if (!nameInput || !descInput || !pillsContainer || !errorSpan) return;
 
         const name = nameInput.value.trim();
         const description = descInput.value.trim();
@@ -193,6 +194,7 @@ function collectAndValidate(body: HTMLElement): devCookie[] | null {
             .filter((v) => v);
 
         function showError(msg: string, input?: HTMLInputElement, pills?: HTMLElement) {
+            if (!errorSpan) return;
             errorSpan.textContent = msg;
             errorSpan.classList.add(`${CE}__error--visible`);
             if (input) input.classList.add(`${CE}__input--error`);
@@ -209,20 +211,21 @@ function collectAndValidate(body: HTMLElement): devCookie[] | null {
 
     if (!valid) return null;
 
-    // Duplicate name check
-    const seen = new Set<string>();
+    // Duplicate name check — mark every occurrence, not just the second
+    const nameCounts = new Map<string, number>();
+    cookies.forEach((c) => nameCounts.set(c.name, (nameCounts.get(c.name) ?? 0) + 1));
     entries.forEach((entry, i) => {
         const name = cookies[i]?.name;
         if (!name) return;
-        if (seen.has(name)) {
-            const nameInput = entry.querySelector<HTMLInputElement>(`.${CE}__input--name`)!;
-            const errorSpan = entry.querySelector<HTMLElement>(`.${CE}__error`)!;
+        if ((nameCounts.get(name) ?? 0) > 1) {
+            const nameInput = entry.querySelector<HTMLInputElement>(`.${CE}__input--name`);
+            const errorSpan = entry.querySelector<HTMLElement>(`.${CE}__error`);
+            if (!nameInput || !errorSpan) return;
             errorSpan.textContent = 'Duplicate cookie name';
             errorSpan.classList.add(`${CE}__error--visible`);
             nameInput.classList.add(`${CE}__input--error`);
             valid = false;
         }
-        seen.add(name);
     });
 
     return valid ? cookies : null;

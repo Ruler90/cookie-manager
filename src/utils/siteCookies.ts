@@ -5,6 +5,7 @@ export const getSiteCookies = () => {
     document.cookie.split(/;\s?/).forEach((item) => {
         const [rawName, ...rest] = item.split('=');
         const name = (rawName || '').trim();
+        if (!name) return;
         const value = rest.join('=');
         siteCookiesList.push({ name, value });
     });

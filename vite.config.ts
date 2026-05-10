@@ -5,7 +5,7 @@ export default defineConfig({
         lib: {
             entry: 'src/app.ts',
             formats: ['iife'],
-            name: 'getProducts',
+            name: 'CookieManager',
             fileName: () => 'bookmarklet.js'
         },
         minify: 'terser',

@@ -9,8 +9,10 @@ import { itemButtons, addCookie, deleteCookie } from './components/Content/ItemB
 import { openCookieEditor } from './components/CookieEditor/CookieEditor.component';
 
 (() => {
-    if (document.querySelector('.mw-cookie-manager')) {
-        alert('Another instance of Cookie Manager is already opened');
+    const existing = document.querySelector<HTMLElement>('.mw-cookie-manager');
+    if (existing) {
+        existing.classList.add('mw-cookie-manager--flash');
+        existing.addEventListener('animationend', () => existing.classList.remove('mw-cookie-manager--flash'), { once: true });
         return;
     }
 
@@ -52,7 +54,7 @@ import { openCookieEditor } from './components/CookieEditor/CookieEditor.compone
         cookieManager.classList.add('mw-cookie-manager');
         cookieManager.innerHTML = cookieManagerSkeleton;
         const cookieManagerStyles = document.createElement('style');
-        cookieManagerStyles.innerHTML = styles;
+        cookieManagerStyles.textContent = styles;
         cookieManager.appendChild(cookieManagerStyles);
         cookieManager.querySelector('.mw-cm__header-remove-btn')?.addEventListener('click', () => deleteAllCookies(cookieNodes));
         cookieManager.querySelector('.mw-cm__header-settings-btn')?.addEventListener('click', () => openCookieEditor(renderItems));
