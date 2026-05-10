@@ -260,6 +260,7 @@ export function openCookieEditor(onSave: () => void): void {
         const entry = buildEntry({ name: '', values: [], description: '' });
         body.insertBefore(entry, addCookieBtn);
         entry.querySelector<HTMLInputElement>(`.${CE}__input--name`)?.focus();
+        entry.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
     body.appendChild(addCookieBtn);
     setupDragReorder(body);
