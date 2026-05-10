@@ -12,7 +12,7 @@ To use Cookie Manager, simply:
 3. Create a new bookmark in your browser and paste the code as the URL.
 4. Click the bookmark on any page.
 
-On first use, Cookie Manager will start with a single example cookie. Use the gear icon to configure your own cookies (see [Cookie Editor](#cookie-editor)).
+On first use, Cookie Manager will start with three example cookies. Use the gear icon to configure your own cookies (see [Cookie Editor](#cookie-editor)).
 
 ## Features
 
@@ -47,7 +47,7 @@ Clicking **Accept** re-renders the main panel with the new config for the curren
 
 The bookmarklet is self-replicating: every generated URL is a complete, standalone copy of the app with your config baked in, and that copy can generate further updated URLs the same way.
 
-On first use (before any config has been saved), Cookie Manager starts with a single placeholder cookie as a starting point.
+On first use (before any config has been saved), Cookie Manager starts with three placeholder cookies as a starting point.
 
 ## Development
 
@@ -80,11 +80,12 @@ Update the version in `package.json`. It is automatically read and displayed in 
 
 `npm run build` runs the full check suite and then produces `dist/bookmarklet.js` - a single minified IIFE prefixed with `javascript:`, ready to paste as a bookmark URL. The build will fail on any TypeScript or lint errors.
 
+`public/bookmarklet-template.js` is a dev-only file loaded by `index.html` so the "Update your bookmark" flow works during `npm run dev`. A placeholder is committed so fresh clones don't 404. Because Vite copies everything in `public/` to `dist/` during the build, a copy also appears in `dist/` — it can be ignored, the only meaningful output is `dist/bookmarklet.js`.
+
 ## Final Notes
 
 - v1.0 was first released on 14 October 2022. v2.0 introduced the in-browser Cookie Editor and a self-replicating bookmark architecture — the cookie config is embedded directly in the `javascript:` URL, and the app can regenerate that URL with any new config, producing a new standalone bookmark without changing a single line of source code.
 - The bookmarklet stores its own minified source as a string (`window.__CM_BOOKMARKLET_TEMPLATE__`). When config changes, that string is used to construct the next URL, carrying itself forward. No `localStorage`, no server, no file format needed.
-- Cookie Manager is wrapped in an IIFE so clicking the bookmark multiple times on the same page does not cause re-declaration errors - it simply shows an alert if an instance is already open.
+- Cookie Manager is wrapped in an IIFE so clicking the bookmark multiple times on the same page does not cause re-declaration errors - if an instance is already open, the panel briefly flashes to indicate it is there.
 - If Cookie Manager does not appear after clicking the bookmark, check whether page elements have higher `z-index` values than the overlay (`1000000`) and panel (`1000001`). Adjust the values in `_CookieManager.styles.scss` if needed.
-- `public/bookmarklet-template.js` is a dev-only file loaded by `index.html` so the "Update your bookmark" flow works during `npm run dev`. A placeholder is committed so fresh clones don't 404. Because Vite copies everything in `public/` to `dist/` during the build, a copy also appears in `dist/` — it can be ignored, the only meaningful output is `dist/bookmarklet.js`.
 - Emotion (CSS-in-JS) was considered but rejected - it added too much boilerplate to the bookmarklet. Plain Sass with `?inline` keeps the output small while still allowing organised, split stylesheets.
