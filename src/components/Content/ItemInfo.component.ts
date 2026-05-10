@@ -1,20 +1,21 @@
-import { devCookie } from '../../types/types';
 import { getSiteCookies } from '../../utils/siteCookies';
+import { escapeHtml } from '../../utils/escapeHtml';
 
-export const showCookieValue = (cookie: devCookie, node: HTMLElement): void => {
-    const valueEl = node.querySelector('.js-mw-cm-item-value')!;
-    const match = getSiteCookies().find((siteCookie) => siteCookie.name === cookie.name);
+export const showCookieValue = (cookieName: string, node: HTMLElement): void => {
+    const valueEl = node.querySelector('.js-mw-cm-item-value');
+    if (!valueEl) return;
+    const match = getSiteCookies().find((siteCookie) => siteCookie.name === cookieName);
     valueEl.textContent = match?.value ?? 'No cookie';
 };
 
 export const itemInfo = (cookieName: string, cookieValue: string | null, cookieDescription: string) => `
     <div class="mw-cm-item__info">
         <span class="mw-cm-item__info-text mw-cm-item__info-text--name"
-            ${cookieDescription ? 'title="' + cookieDescription + '"' : ''}>${cookieName}
+            ${cookieDescription ? 'title="' + escapeHtml(cookieDescription) + '"' : ''}>${escapeHtml(cookieName)}
         </span>
         <span class="mw-cm-item__info-text mw-cm-item__info-text--separator">|</span>
         <span class="mw-cm-item__info-text mw-cm-item__info-text--description js-mw-cm-item-value">
-            ${cookieValue ?? 'No cookie'}
+            ${escapeHtml(cookieValue ?? 'No cookie')}
         </span>
     </div>
 `;

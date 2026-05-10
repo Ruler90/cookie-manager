@@ -2,7 +2,7 @@
     margin-bottom: 16px;
     padding: 0 8px;
     display: grid;
-    grid-template-columns: 1fr repeat(3, max-content);
+    grid-template-columns: 1fr repeat(4, max-content);
     gap: 16px;
     justify-content: space-between;
     align-items: center;
@@ -22,25 +22,31 @@
 }
 
 .mw-cm__header-remove-btn,
+.mw-cm__header-settings-btn,
 .mw-cm__header-refresh-btn,
 .mw-cm__header-close-btn {
     all: unset;
     display: flex;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.mw-cm__header-settings-btn-img,
+.mw-cm__header-refresh-btn-img,
+.mw-cm__header-close-btn-img {
     transition: transform 400ms;
+    transform-origin: center;
 }
 
-.mw-cm__header-refresh-btn,
-.mw-cm__header-close-btn {
-    &:hover {
-        cursor: pointer;
-        transform: rotate(-180deg);
-    }
+.mw-cm__header-settings-btn:hover .mw-cm__header-settings-btn-img {
+    transform: rotate(-90deg);
 }
 
-.mw-cm__header-remove-btn {
-    &:hover {
-        cursor: pointer;
-    }
+.mw-cm__header-refresh-btn:hover .mw-cm__header-refresh-btn-img,
+.mw-cm__header-close-btn:hover .mw-cm__header-close-btn-img {
+    transform: rotate(-180deg);
 }
 
 .mw-cm__header-remove-btn {
@@ -62,6 +68,11 @@
     width: 22px;
     position: relative;
     top: -2px;
+}
+
+.mw-cm__header-settings-btn-img {
+    height: 22px;
+    width: 22px;
 }
 
 .mw-cm__header-refresh-btn-img {

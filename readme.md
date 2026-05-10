@@ -1,50 +1,91 @@
 # Cookie Manager
 
-Customizable Cookie Manager, where you can put just the cookies that you usually modify (e.g. for development purposes).  
-Cookie Manager can be used as a Bookmarklet (browser bookmark that executes JavaScript code) so you can quickly run it in any browser.
-
-![Screenshot](./cookie-manager-v1.jpg)
+Customizable Cookie Manager for development purposes - configure which cookies to track directly in the browser UI, without touching any code.  
+Cookie Manager runs as a Bookmarklet (a browser bookmark that executes JavaScript) so you can quickly launch it on any page.
 
 ## Quick start
 
 To use Cookie Manager, simply:
 
-1. Open the [bookmarklet.js](build/bookmarklet.js) file.
-2. Copy the entire code (there is an option on GitHub: "copy raw contents").
-3. Create a new bookmark in your browser and paste the code as an URL.
-4. Use the bookmark.
+1. Open the [bookmarklet.js](dist/bookmarklet.js) file.
+2. Copy the entire code (on GitHub use "Copy raw contents").
+3. Create a new bookmark in your browser and paste the code as the URL.
+4. Click the bookmark on any page.
+
+On first use, Cookie Manager will start with three example cookies. Use the gear icon to configure your own cookies (see [Cookie Editor](#cookie-editor)).
 
 ## Features
 
-- Only you decide what cookies and their values will be handled by Cookie Manager (check the [Development section](#development)).
-- Correctly matches developer cookies with cookies in the browser and displays the status in real-time - either providing the value or indicating that the cookie does not exist in the browser.
-- Opening and closing the Cookie Manager without refreshing the page.
-- Refreshing the page using a button.
-- Deleting all cookies managed by Cookie Manager with one click.
-- Only one instance of Cookie Manager can be opened at a time.
-- Dark overlay covering the page as long as Cookie Manager is open.
+- **In-browser cookie configuration** - add, edit and remove tracked cookies without editing any source files (see [Cookie Editor](#cookie-editor)).
+- **Portable config** - your cookie list is embedded directly in the bookmark URL. It works on every domain, in incognito windows, and in any browser where you save the bookmark - no server, no file, no import step.
+- Correctly matches your configured cookies against live browser cookies and displays the current value in real-time, or "No cookie" if absent.
+- Set a cookie to any of its predefined values with a single click.
+- Remove individual cookies or delete all managed cookies at once.
+- Refresh the page without closing Cookie Manager.
+- Only one instance of Cookie Manager can be open at a time.
+- Dark overlay covering the page while Cookie Manager is open.
 - Desktop and mobile view.
-- Hovering over the "Cookie Manager" name shows the app version.
-- Hovering over the header buttons will display a description of what they do.
-- Hovering over the cookie name shows what the cookie does (if a description exists).
+- Hovering over "Cookie Manager" in the header shows the app version.
+- Hovering over header buttons shows a description of what they do.
+- Hovering over a cookie name shows its description (if one was provided).
+
+## Cookie Editor
+
+Click the **gear icon** (⚙) in the header to open the configuration editor.
+
+Each cookie entry has three fields:
+
+| Field | Description |
+|---|---|
+| **Name** | The actual browser cookie name. No spaces, semicolons, commas, or `=` allowed. |
+| **Description** | Optional tooltip shown when hovering the cookie name in the main panel. |
+| **Values** | One or more preset values shown as pills. Press **Enter** to add a new value; click **×** to remove one. |
+
+Use **+ Add cookie** to append a new entry. Use **Delete cookie** to remove one. **Drag the grip handle** (⠿) on the left side of an entry to reorder cookies. Click **Cancel** or press **Escape** to discard changes.
+
+Clicking **Accept** re-renders the main panel with the new config for the current session and then shows a **"Update your bookmark"** screen with a new `javascript:` URL containing your config embedded in the code. Copy that URL and replace your bookmark with it — the new bookmark will carry your config everywhere.
+
+The bookmarklet is self-replicating: every generated URL is a complete, standalone copy of the app with your config baked in, and that copy can generate further updated URLs the same way.
+
+On first use (before any config has been saved), Cookie Manager starts with three placeholder cookies as a starting point.
 
 ## Development
 
 - Works with Node `22.12.0`
 - `npm i`
-- `npm run dev`
-- Vite will launch, allowing you to see changes live. After closing Cookie Manager, refresh the page to make it appear again.
-- The entire mechanism is based on the [devCookiesList](src/utils/devCookies.ts) variable, which you modify as needed. The content of Cookie Manager is generated based on that file.
-- The styles (.scss partials) for different parts of Cookie Manager are located inside the components folders. All of them are imported into the main [styles.module.scss](src/styles/styles.module.scss) file, which is compiled into a .css file and imported in [app.ts](src/app.ts).
-- I used as little styling as possible so Cookie Manager should, for example, use the fonts used on a site where you ran the app. If there are any inconsistencies or something is not right, you can update the styles to meet your expectations.
-- Update the app version in `package.json`. This will be reflected in the app's header (on hover).
-- Use `npm run build` to check the code with TypeScript and ESLint and generate the [bookmarklet.js](dist/bookmarklet.js) file with minified code. The `javascript:` string at the beginning is added automatically.
-- The project should be type-safe so the bookmarklet will not be generated if there are any TS errors, unless you explicitly use `//@ts-nocheck` in a .ts file.
-- Now you have developed your customized version of Cookie Manager and you can use it as described in the [Quick Start](#quick-start) section.
+- `npm run dev` - Vite launches a dev server with hot module reloading. After closing Cookie Manager, refresh the page to reopen it.
+
+### Styles
+
+SCSS partials for each component live inside their respective component folders. They are all imported into [`src/styles/styles.scss`](src/styles/styles.scss), which Vite compiles and inlines via the `?inline` import in [`app.ts`](src/app.ts). No manual SCSS compilation step is needed during development.
+
+Cookie Manager intentionally uses minimal base styling so it inherits fonts and other properties from the host page. Adjust the `.scss` partials if you need to override anything.
+
+### Scripts
+
+| Script | What it does |
+|---|---|
+| `npm run dev` | Start Vite dev server |
+| `npm run build` | Type-check, lint, and produce `dist/bookmarklet.js` |
+| `npm run check` | Run TypeScript and ESLint checks only |
+| `npm run ts` | TypeScript check only (`tsc --noEmit`) |
+| `npm run lint` | ESLint only |
+| `npm run css` | Compile `styles.scss` → `styles.css` as a standalone file (for inspection only - not used by the build) |
+
+### Versioning
+
+Update the version in `package.json`. It is automatically read and displayed in the Cookie Manager header tooltip.
+
+### Build output
+
+`npm run build` runs the full check suite and then produces `dist/bookmarklet.js` - a single minified IIFE prefixed with `javascript:`, ready to paste as a bookmark URL. The build will fail on any TypeScript or lint errors.
+
+`public/bookmarklet-template.js` is a dev-only file loaded by `index.html` so the "Update your bookmark" flow works during `npm run dev`. A placeholder is committed so fresh clones don't 404. Because Vite copies everything in `public/` to `dist/` during the build, a copy also appears in `dist/` — it can be ignored, the only meaningful output is `dist/bookmarklet.js`.
 
 ## Final Notes
 
-- The first version of this project was released on the 14th of October 2022.
-- The Cookie Manager JS/TS code is an IIFE function, which allows it to be executed multiple times without reloading the page. If it was a regular function + its call, using it a second time would result in an error that we are trying to re-declare the function.
-- If Cookie Manager doesn't appear on the page, and subsequent clicks indicate it's already running, check if page elements don't have higher `z-indexes` than Cookie Manager. In this case they may simply cover the app and you should adjust the styles.
-- I tried using emotion (CSS-in-JS) here but it generated too much boilerplate, so I stuck with plain Sass to include as little code in the bookmarklet as possible while being able to split styles for code organization purposes.
+- v1.0 was first released on 14 October 2022. v2.0 introduced the in-browser Cookie Editor and a self-replicating bookmark architecture — the cookie config is embedded directly in the `javascript:` URL, and the app can regenerate that URL with any new config, producing a new standalone bookmark without changing a single line of source code.
+- The bookmarklet stores its own minified source as a string (`window.__CM_BOOKMARKLET_TEMPLATE__`). When config changes, that string is used to construct the next URL, carrying itself forward. No `localStorage`, no server, no file format needed.
+- Cookie Manager is wrapped in an IIFE so clicking the bookmark multiple times on the same page does not cause re-declaration errors - if an instance is already open, the panel briefly flashes to indicate it is there.
+- If Cookie Manager does not appear after clicking the bookmark, check whether page elements have higher `z-index` values than the overlay (`1000000`) and panel (`1000001`). Adjust the values in `_CookieManager.styles.scss` if needed.
+- Emotion (CSS-in-JS) was considered but rejected - it added too much boilerplate to the bookmarklet. Plain Sass with `?inline` keeps the output small while still allowing organised, split stylesheets.
