@@ -11,9 +11,10 @@ export const deleteCookie = (cookieName: string, node: HTMLElement): void => {
     showCookieValue(cookieName, node);
 };
 
-export const itemButtons = (devCookieValues: string[]): string => {
+export const itemButtons = (devCookieValues: string[], currentValue: string | null): string => {
     const addButtons = devCookieValues.map(
-        (value) => `<button class="mw-cm-item__btn mw-cm-item__btn--add" title="${escapeHtml(value)}">Set value: ${escapeHtml(value)}</button>`,
+        (value) =>
+            `<button class="mw-cm-item__btn mw-cm-item__btn--add${currentValue === value ? ' mw-cm-item__btn--active' : ''}" data-value="${escapeHtml(value)}" title="${escapeHtml(value)}">${escapeHtml(value)}</button>`,
     );
-    return `${addButtons.join('')}<button class="mw-cm-item__btn mw-cm-item__btn--remove">Remove cookie</button>`;
+    return `<div class="mw-cm-item__pills-row">${addButtons.join('')}<button class="mw-cm-item__btn mw-cm-item__btn--remove"${currentValue === null ? ' disabled' : ''}>clear</button></div>`;
 };

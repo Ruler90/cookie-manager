@@ -51,7 +51,7 @@ On first use (before any config has been saved), Cookie Manager starts with thre
 
 ## Development
 
-- Works with Node `22.12.0`
+- Works with Node `22.15.0`
 - `npm i`
 - `npm run dev` - Vite launches a dev server with hot module reloading. After closing Cookie Manager, refresh the page to reopen it.
 
