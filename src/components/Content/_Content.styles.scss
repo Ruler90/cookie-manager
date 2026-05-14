@@ -60,14 +60,13 @@
     flex: 1;
     min-width: 0;
     font-weight: 500;
-    font-size: 13px;
+    font-size: 14px;
     color: #0f1115;
     display: flex;
     align-items: center;
     gap: 6px;
 
     code {
-        font-size: 12px;
         color: #0f1115;
         background: transparent;
         padding: 0;
@@ -80,7 +79,7 @@
 }
 
 .mw-cm-item__status {
-    font-size: 12px;
+    font-size: 13px;
     color: #94949f;
     font-variant-numeric: tabular-nums;
     flex-shrink: 0;
@@ -121,7 +120,7 @@
 }
 
 .mw-cm-item__desc {
-    font-size: 12px;
+    font-size: 13px;
     color: #6b6b76;
     line-height: 1.45;
     max-height: 0;
@@ -149,7 +148,7 @@
     box-sizing: border-box;
 
     &--add {
-        font-size: 12px;
+        font-size: 13px;
         line-height: 1.25;
         padding: 6px 9px;
         border-radius: 6px;
@@ -177,7 +176,7 @@
     }
 
     &--remove {
-        font-size: 12px;
+        font-size: 13px;
         padding: 6px 8px;
         border-radius: 6px;
         background: transparent;
@@ -212,9 +211,6 @@
 
 .mw-cm-footer__count,
 .mw-cm-footer__version {
-    font-size: 12px;
+    font-size: 13px;
     color: #94949f;
-}
-
-.mw-cm-footer__version {
 }

@@ -8,14 +8,10 @@
 
 .mw-cm__header-text {
     flex: 1;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     color: #0f1115;
     white-space: nowrap;
-
-    &:hover {
-        cursor: help;
-    }
 }
 
 .mw-cm__header-remove-btn,
@@ -24,8 +20,8 @@
 .mw-cm__header-close-btn {
     all: unset;
     box-sizing: border-box;
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -34,7 +30,6 @@
 
     &:hover {
         cursor: pointer;
-        background-color: #f4f4f6;
     }
 }
 
@@ -69,23 +64,23 @@
 }
 
 .mw-cm__header-remove-btn-img {
-    height: 20px;
-    width: 16px;
+    height: 22px;
+    width: 18px;
     position: relative;
     top: -2px;
 }
 
 .mw-cm__header-settings-btn-img {
-    height: 17px;
-    width: 17px;
+    height: 19px;
+    width: 19px;
 }
 
 .mw-cm__header-refresh-btn-img {
-    height: 17px;
-    width: 17px;
+    height: 19px;
+    width: 19px;
 }
 
 .mw-cm__header-close-btn-img {
-    height: 14px;
-    width: 14px;
+    height: 16px;
+    width: 16px;
 }
