@@ -2,16 +2,16 @@
     {
         "name": "example_1",
         "values": ["true", "false"],
-        "description": "Example cookie — edit or replace via the gear button"
+        "description": "Example cookie - edit or replace via the gear button"
     },
     {
         "name": "example_2",
         "values": ["enabled", "disabled"],
-        "description": "Another example cookie — edit or replace via the gear button"
+        "description": "Another example cookie - edit or replace via the gear button"
     },
     {
         "name": "example_3",
         "values": ["1"],
-        "description": "And yet another example cookie — edit or replace via the gear button"
+        "description": "And yet another example cookie - edit or replace via the gear button"
     }
 ]

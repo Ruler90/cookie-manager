@@ -1,24 +1,17 @@
 .mw-cm__header {
-    margin-bottom: 16px;
-    padding: 0 8px;
-    display: grid;
-    grid-template-columns: 1fr repeat(4, max-content);
-    gap: 16px;
-    justify-content: space-between;
+    padding: 12px 14px;
+    display: flex;
     align-items: center;
+    gap: 2px;
+    border-bottom: 1px solid #ebebef;
 }
 
 .mw-cm__header-text {
-    margin-right: 24px;
-    font-size: 21px;
-    line-height: 28px;
-    font-weight: bold;
-    color: #242424;
+    flex: 1;
+    font-size: 18px;
+    font-weight: 600;
+    color: #0f1115;
     white-space: nowrap;
-
-    &:hover {
-        cursor: help;
-    }
 }
 
 .mw-cm__header-remove-btn,
@@ -26,7 +19,14 @@
 .mw-cm__header-refresh-btn,
 .mw-cm__header-close-btn {
     all: unset;
+    box-sizing: border-box;
+    width: 30px;
+    height: 30px;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: background-color 150ms;
 
     &:hover {
         cursor: pointer;
@@ -36,8 +36,8 @@
 .mw-cm__header-settings-btn-img,
 .mw-cm__header-refresh-btn-img,
 .mw-cm__header-close-btn-img {
-    transition: transform 400ms;
     transform-origin: center;
+    transition: transform 400ms;
 }
 
 .mw-cm__header-settings-btn:hover .mw-cm__header-settings-btn-img {
@@ -58,29 +58,29 @@
     &:hover {
         .mw-cm__header-remove-btn-img-cover,
         .mw-cm__header-remove-btn-img-cover-handle {
-            transform: rotate(-15deg) translateX(-5px);
+            transform: rotate(-15deg) translateX(-4px);
         }
     }
 }
 
 .mw-cm__header-remove-btn-img {
-    height: 27px;
-    width: 22px;
     position: relative;
     top: -2px;
+    width: 18px;
+    height: 22px;
 }
 
 .mw-cm__header-settings-btn-img {
-    height: 22px;
-    width: 22px;
+    width: 19px;
+    height: 19px;
 }
 
 .mw-cm__header-refresh-btn-img {
-    height: 22px;
-    width: 22px;
+    width: 19px;
+    height: 19px;
 }
 
 .mw-cm__header-close-btn-img {
-    height: 20px;
-    width: 20px;
+    width: 16px;
+    height: 16px;
 }

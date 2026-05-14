@@ -24,6 +24,13 @@ import { openCookieEditor } from './components/CookieEditor/CookieEditor.compone
         document.body.appendChild(overlay);
     };
 
+    const updateFooterCount = () => {
+        const countEl = document.querySelector('.js-mw-cm-footer-count');
+        if (!countEl) return;
+        const n = cookieNodes.size;
+        countEl.textContent = `${n} cookie${n !== 1 ? 's' : ''} tracked`;
+    };
+
     const renderItems = () => {
         const cookieManagerContent = document.querySelector('.mw-cm-content');
         if (!cookieManagerContent) return;
@@ -36,7 +43,7 @@ import { openCookieEditor } from './components/CookieEditor/CookieEditor.compone
             cookieNodes.set(devCookie.name, cookieManagerItem);
             cookieManagerItem.classList.add('mw-cm-item');
             cookieManagerItem.innerHTML =
-                itemInfo(devCookie.name, cookieValue, devCookie.description) + itemButtons(devCookie.values);
+                itemInfo(devCookie.name, cookieValue, devCookie.description) + itemButtons(devCookie.values, cookieValue);
             cookieManagerItem.querySelectorAll('.mw-cm-item__btn--add').forEach((btn, index) => {
                 btn.addEventListener('click', () =>
                     addCookie(devCookie.name, devCookie.values[index] ?? '', cookieManagerItem),
@@ -45,8 +52,16 @@ import { openCookieEditor } from './components/CookieEditor/CookieEditor.compone
             cookieManagerItem
                 .querySelector('.mw-cm-item__btn--remove')
                 ?.addEventListener('click', () => deleteCookie(devCookie.name, cookieManagerItem));
+            const infoBtn = cookieManagerItem.querySelector<HTMLButtonElement>('.js-mw-cm-item-info');
+            infoBtn?.addEventListener('click', () => {
+                const isOpen = cookieManagerItem.classList.toggle('is-open');
+                infoBtn.setAttribute('aria-expanded', String(isOpen));
+                infoBtn.setAttribute('aria-label', isOpen ? 'Hide description' : 'Show description');
+                cookieManagerItem.querySelector('.mw-cm-item__desc')?.setAttribute('aria-hidden', String(!isOpen));
+            });
             cookieManagerContent.appendChild(cookieManagerItem);
         });
+        updateFooterCount();
     };
 
     const generateCookieManager = () => {
