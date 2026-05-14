@@ -38,7 +38,10 @@ function buildDragHandle(): HTMLDivElement {
     return handle;
 }
 
+let _entryUid = 0;
+
 function buildEntry(cookie: devCookie, options: { isNew?: boolean } = {}): HTMLDivElement {
+    const uid = ++_entryUid;
     const entry = el('div', `${CE}__entry`);
     if (options.isNew) entry.classList.add(`${CE}__entry--new`);
 
@@ -46,7 +49,9 @@ function buildEntry(cookie: devCookie, options: { isNew?: boolean } = {}): HTMLD
     const nameField = el('div', `${CE}__field`);
     const nameLabel = el('label', `${CE}__label`);
     nameLabel.textContent = 'Name';
+    nameLabel.htmlFor = `${CE}-name-${uid}`;
     const nameInput = el('input', `${CE}__input ${CE}__input--name`);
+    nameInput.id = `${CE}-name-${uid}`;
     nameInput.type = 'text';
     nameInput.value = cookie.name;
     nameInput.placeholder = 'cookie_name';
@@ -56,7 +61,9 @@ function buildEntry(cookie: devCookie, options: { isNew?: boolean } = {}): HTMLD
     const descField = el('div', `${CE}__field`);
     const descLabel = el('label', `${CE}__label`);
     descLabel.textContent = 'Note';
+    descLabel.htmlFor = `${CE}-desc-${uid}`;
     const descInput = el('input', `${CE}__input ${CE}__input--desc`);
+    descInput.id = `${CE}-desc-${uid}`;
     descInput.type = 'text';
     descInput.value = cookie.description;
     descInput.placeholder = 'Optional description…';
@@ -66,10 +73,12 @@ function buildEntry(cookie: devCookie, options: { isNew?: boolean } = {}): HTMLD
     const valuesSection = el('div', `${CE}__values-section`);
     const valuesLabel = el('label', `${CE}__label`);
     valuesLabel.textContent = 'Values';
+    valuesLabel.htmlFor = `${CE}-pill-${uid}`;
 
     const pillsContainer = el('div', `${CE}__pills`);
 
     const pillInput = el('input', `${CE}__pill-input`);
+    pillInput.id = `${CE}-pill-${uid}`;
     pillInput.type = 'text';
     pillInput.placeholder = 'Add value…';
 
