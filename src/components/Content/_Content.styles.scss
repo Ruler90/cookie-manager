@@ -1,9 +1,9 @@
 .mw-cm-content {
     max-height: 440px;
+    padding: 6px 8px 12px;
     overflow-x: hidden;
     overflow-y: auto;
     overscroll-behavior: contain;
-    padding: 6px 8px 12px;
     scrollbar-color: #d4d4d8 transparent;
     scrollbar-width: thin;
 
@@ -16,8 +16,8 @@
     }
 
     &::-webkit-scrollbar-thumb {
-        border-radius: 4px;
         background-color: #d4d4d8;
+        border-radius: 4px;
     }
 
     &::-webkit-scrollbar-thumb:hover {
@@ -49,44 +49,44 @@
 }
 
 .mw-cm-item__row {
+    min-width: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
-    min-width: 0;
 }
 
 .mw-cm-item__name {
-    flex: 1;
     min-width: 0;
-    font-weight: 500;
-    font-size: 14px;
-    color: #0f1115;
+    flex: 1;
     display: flex;
     align-items: center;
     gap: 6px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #0f1115;
 
     code {
-        color: #0f1115;
-        background: transparent;
+        max-width: 100%;
+        min-width: 0;
         padding: 0;
         overflow: hidden;
+        background: transparent;
+        color: #0f1115;
         text-overflow: ellipsis;
         white-space: nowrap;
-        min-width: 0;
-        max-width: 100%;
     }
 }
 
 .mw-cm-item__status {
+    flex-shrink: 0;
     font-size: 13px;
     color: #94949f;
     font-variant-numeric: tabular-nums;
-    flex-shrink: 0;
 
     &--set {
-        color: #4f46e5;
         font-weight: 500;
+        color: #4f46e5;
     }
 }
 
@@ -95,52 +95,52 @@
     box-sizing: border-box;
     width: 18px;
     height: 18px;
-    border-radius: 99px;
-    border: 1px solid #e5e5ea;
-    background: #fff;
-    color: #94949f;
+    padding: 0;
+    flex-shrink: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    padding: 0;
-    flex-shrink: 0;
+    background: #fff;
+    border: 1px solid #e5e5ea;
+    border-radius: 99px;
     transition: color 0.12s, border-color 0.12s, background 0.12s;
+    cursor: pointer;
+    color: #94949f;
 
     &:hover {
-        color: #0f1115;
         border-color: #bdbdc7;
+        color: #0f1115;
     }
 
     &[aria-expanded="true"] {
-        color: #fff;
         background: #0f1115;
         border-color: #0f1115;
+        color: #fff;
     }
 }
 
 .mw-cm-item__desc {
-    font-size: 13px;
-    color: #6b6b76;
-    line-height: 1.45;
     max-height: 0;
-    opacity: 0;
     overflow: hidden;
+    opacity: 0;
     transition: max-height 0.2s ease, opacity 0.14s, margin-top 0.14s;
+    font-size: 13px;
+    line-height: 1.45;
+    color: #6b6b76;
 
     .mw-cm-item.is-open & {
         max-height: 120px;
-        opacity: 1;
         margin-top: 6px;
+        opacity: 1;
     }
 }
 
 .mw-cm-item__pills-row {
+    margin-top: 8px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 4px;
-    flex-wrap: wrap;
-    margin-top: 8px;
 }
 
 .mw-cm-item__btn {
@@ -148,18 +148,18 @@
     box-sizing: border-box;
 
     &--add {
+        max-width: 100%;
+        padding: 6px 9px;
+        background: #f4f4f7;
+        border: 1px solid transparent;
+        border-radius: 6px;
+        transition: background 0.12s, border-color 0.12s, color 0.12s, box-shadow 0.12s;
+        cursor: pointer;
         font-size: 13px;
         line-height: 1.25;
-        padding: 6px 9px;
-        border-radius: 6px;
-        background: #f4f4f7;
         color: #3f3f4a;
-        border: 1px solid transparent;
-        cursor: pointer;
-        transition: background 0.12s, border-color 0.12s, color 0.12s, box-shadow 0.12s;
-        max-width: 100%;
-        overflow-wrap: anywhere;
         text-align: left;
+        overflow-wrap: anywhere;
 
         @media (hover: hover) {
             &:hover:not(.mw-cm-item__btn--active) {
@@ -169,22 +169,22 @@
 
         &.mw-cm-item__btn--active {
             background: #4f46e5;
-            color: #fff;
             border-color: #4f46e5;
             box-shadow: 0 1px 0 rgba(79, 70, 229, 0.25);
+            color: #fff;
         }
     }
 
     &--remove {
-        font-size: 13px;
-        padding: 6px 8px;
-        border-radius: 6px;
-        background: transparent;
-        color: #94949f;
-        border: 1px solid transparent;
-        cursor: pointer;
         margin-left: auto;
+        padding: 6px 8px;
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 6px;
         transition: color 0.12s, background 0.12s;
+        cursor: pointer;
+        font-size: 13px;
+        color: #94949f;
         white-space: nowrap;
 
         &:disabled {
@@ -194,18 +194,18 @@
 
         @media (hover: hover) {
             &:not(:disabled):hover {
-                color: #dc2626;
                 background: #fef2f2;
+                color: #dc2626;
             }
         }
     }
 }
 
 .mw-cm-footer {
+    padding: 8px 12px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 12px;
     border-top: 1px solid #ebebef;
 }
 

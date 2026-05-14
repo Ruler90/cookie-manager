@@ -36,8 +36,8 @@
 .mw-cm__header-settings-btn-img,
 .mw-cm__header-refresh-btn-img,
 .mw-cm__header-close-btn-img {
-    transition: transform 400ms;
     transform-origin: center;
+    transition: transform 400ms;
 }
 
 .mw-cm__header-settings-btn:hover .mw-cm__header-settings-btn-img {
@@ -64,23 +64,23 @@
 }
 
 .mw-cm__header-remove-btn-img {
-    height: 22px;
-    width: 18px;
     position: relative;
     top: -2px;
+    width: 18px;
+    height: 22px;
 }
 
 .mw-cm__header-settings-btn-img {
-    height: 19px;
     width: 19px;
+    height: 19px;
 }
 
 .mw-cm__header-refresh-btn-img {
-    height: 19px;
     width: 19px;
+    height: 19px;
 }
 
 .mw-cm__header-close-btn-img {
-    height: 16px;
     width: 16px;
+    height: 16px;
 }

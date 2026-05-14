@@ -10,15 +10,15 @@
     top: 50%;
     left: 50%;
     z-index: 1000003;
-    transform: translate(-50%, -50%);
     width: min(560px, calc(100vw - 24px));
     max-height: 82vh;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     background-color: #fff;
     border-radius: 14px;
     box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 8px 24px rgba(0,0,0,.12), 0 0 0 1px rgba(0,0,0,.06);
-    overflow: hidden;
+    transform: translate(-50%, -50%);
 
     * {
         margin: 0;
@@ -33,20 +33,20 @@
 }
 
 .mw-ce__header {
+    padding: 12px 14px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
-    padding: 12px 14px;
     border-bottom: 1px solid #ebebef;
-    flex-shrink: 0;
 }
 
 .mw-ce__header-left {
+    min-width: 0;
     display: flex;
     align-items: center;
     gap: 8px;
-    min-width: 0;
 }
 
 .mw-ce__title {
@@ -56,13 +56,13 @@
 }
 
 .mw-ce__unsaved-badge {
-    font-size: 12px;
-    padding: 2px 6px;
-    border-radius: 99px;
-    background: #eef0fb;
-    color: #4f46e5;
-    font-weight: 500;
     flex-shrink: 0;
+    padding: 2px 6px;
+    background: #eef0fb;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #4f46e5;
 }
 
 .mw-ce__close-btn {
@@ -70,30 +70,30 @@
     box-sizing: border-box;
     width: 28px;
     height: 28px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 6px;
+    transition: background-color 150ms, color 150ms, transform 400ms;
     cursor: pointer;
     color: #5b5b66;
-    transition: background-color 150ms, color 150ms, transform 400ms;
-    flex-shrink: 0;
 
     &:hover {
         background-color: #f3f3f5;
-        color: #0f1115;
         transform: rotate(-180deg);
+        color: #0f1115;
     }
 }
 
 .mw-ce__body {
-    flex: 1;
-    overflow-x: hidden;
-    overflow-y: auto;
     padding: 8px;
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
     scrollbar-color: #d4d4d8 transparent;
     scrollbar-width: thin;
 
@@ -106,8 +106,8 @@
     }
 
     &::-webkit-scrollbar-thumb {
-        border-radius: 4px;
         background-color: #d4d4d8;
+        border-radius: 4px;
     }
 
     &::-webkit-scrollbar-thumb:hover {
@@ -116,25 +116,25 @@
 }
 
 .mw-ce__entry {
-    background: #fff;
-    border: 1px solid #ebebef;
-    border-radius: 10px;
-    padding: 10px 12px 10px 0;
     margin-bottom: 8px;
+    padding: 10px 12px 10px 0;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    background: #fff;
+    border: 1px solid #ebebef;
+    border-radius: 10px;
     transition: opacity 150ms, border-color 150ms, box-shadow 150ms, background 150ms;
 
     &--new {
-        border-color: #4f46e5;
         background: rgba(79, 70, 229, 0.04);
+        border-color: #4f46e5;
         box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
     }
 
     &--confirm-del {
-        border-color: #fecaca;
         background: #fff5f5;
+        border-color: #fecaca;
     }
 
     &--dragging {
@@ -153,13 +153,13 @@
 }
 
 .mw-ce__drag-handle {
+    padding: 4px 12px 0 14px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
-    padding: 4px 12px 0 14px;
-    color: #bdbdc7;
-    cursor: grab;
-    flex-shrink: 0;
     transition: color 150ms;
+    cursor: grab;
+    color: #bdbdc7;
 
     @media (hover: hover) {
         &:hover {
@@ -173,12 +173,12 @@
 }
 
 .mw-ce__entry-content {
-    flex: 1;
     min-width: 0;
+    flex: 1;
     display: grid;
     grid-template-columns: 64px 1fr;
-    gap: 8px 10px;
     align-items: center;
+    gap: 8px 10px;
 }
 
 .mw-ce__field {
@@ -186,23 +186,23 @@
 }
 
 .mw-ce__label {
+    padding-top: 1px;
     font-size: 12px;
     color: #94949f;
     text-transform: uppercase;
     letter-spacing: 1px;
-    padding-top: 1px;
 }
 
 .mw-ce__input {
     width: 100%;
+    min-width: 0;
     padding: 6px 9px;
-    font-size: 13px;
-    color: #0f1115;
     background-color: #fff;
     border: 1px solid #e5e5ea;
     border-radius: 6px;
     transition: border-color 150ms, box-shadow 150ms;
-    min-width: 0;
+    font-size: 13px;
+    color: #0f1115;
 
     &::placeholder {
         font-size: 12px;
@@ -225,25 +225,25 @@
     display: contents;
 
     > .mw-ce__label {
-        align-self: start;
         padding-top: 10px;
+        align-self: start;
     }
 }
 
 .mw-ce__pills {
+    max-width: 100%;
+    min-width: 0;
+    min-height: 36px;
+    padding: 4px 6px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 4px;
-    padding: 4px 6px;
-    min-height: 36px;
     background-color: #fff;
     border: 1px solid #e5e5ea;
     border-radius: 6px;
-    cursor: text;
-    min-width: 0;
-    max-width: 100%;
     transition: border-color 150ms, box-shadow 150ms;
+    cursor: text;
 
     &:focus-within {
         border-color: #4f46e5;
@@ -257,30 +257,30 @@
 }
 
 .mw-ce__pill {
+    max-width: 100%;
+    padding: 3px 6px;
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    padding: 3px 6px;
     background-color: #f4f4f7;
     border-radius: 4px;
     font-size: 13px;
     color: #3f3f4a;
     white-space: nowrap;
-    max-width: 100%;
     overflow-wrap: anywhere;
 }
 
 .mw-ce__pill-remove {
     all: unset;
-    cursor: pointer;
-    font-size: 12px;
-    line-height: 1;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #94949f;
-    flex-shrink: 0;
     transition: color 120ms;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 1;
+    color: #94949f;
 
     @media (hover: hover) {
         &:hover {
@@ -290,30 +290,30 @@
 }
 
 .mw-ce__pill-input {
-    border: none;
+    min-width: 80px;
+    padding: 3px 4px;
+    flex: 1;
     background: transparent;
+    border: none;
     font-size: 12px;
     color: #0f1115;
-    min-width: 80px;
-    flex: 1;
-    padding: 3px 4px;
 
     &:focus {
         outline: none;
     }
 
     &::placeholder {
-        color: #b4b4bf;
         font-size: 12px;
+        color: #b4b4bf;
     }
 }
 
 .mw-ce__error {
     grid-column: 2;
+    margin-top: -4px;
+    display: none;
     font-size: 12px;
     color: #dc2626;
-    display: none;
-    margin-top: -4px;
 
     &--visible {
         display: block;
@@ -323,10 +323,10 @@
 // Card bottom row: value count + delete button
 .mw-ce__card-actions {
     grid-column: 1 / -1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-top: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .mw-ce__card-meta {
@@ -336,18 +336,18 @@
 
 .mw-ce__card-del {
     all: unset;
-    font-size: 13px;
-    color: #94949f;
-    background: transparent;
-    cursor: pointer;
     padding: 4px 6px;
+    background: transparent;
     border-radius: 5px;
     transition: color 120ms, background 120ms;
+    cursor: pointer;
+    font-size: 13px;
+    color: #94949f;
 
     @media (hover: hover) {
         &:hover {
-            color: #dc2626;
             background: #fef2f2;
+            color: #dc2626;
         }
     }
 }
@@ -355,12 +355,12 @@
 // Inline delete confirmation row
 .mw-ce__confirm-row {
     grid-column: 1 / -1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 6px 0 2px;
-    gap: 8px;
     margin-top: 4px;
+    padding: 6px 0 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
 }
 
 .mw-ce__confirm-msg {
@@ -369,26 +369,26 @@
 
     .mw-ce__confirm-name {
         color: #0f1115;
-        }
+    }
 }
 
 .mw-ce__confirm-actions {
+    flex-shrink: 0;
     display: flex;
     gap: 6px;
-    flex-shrink: 0;
 }
 
 .mw-ce__mini-btn {
     all: unset;
     box-sizing: border-box;
-    font-size: 13px;
     padding: 4px 8px;
-    border-radius: 5px;
-    border: 1px solid #e5e5ea;
     background: #fff;
-    color: #0f1115;
-    cursor: pointer;
+    border: 1px solid #e5e5ea;
+    border-radius: 5px;
     transition: background 120ms;
+    cursor: pointer;
+    font-size: 13px;
+    color: #0f1115;
 
     @media (hover: hover) {
         &:hover {
@@ -397,8 +397,8 @@
     }
 
     &--danger {
-        border-color: #fca5a5;
         background: #dc2626;
+        border-color: #fca5a5;
         color: #fff;
 
         @media (hover: hover) {
@@ -414,35 +414,35 @@
     box-sizing: border-box;
     width: 100%;
     padding: 9px;
-    border: 1px dashed #d4d4d8;
-    border-radius: 8px;
-    background: transparent;
-    color: #5b5b66;
-    font-size: 13px;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
+    background: transparent;
+    border: 1px dashed #d4d4d8;
+    border-radius: 8px;
     transition: border-color 150ms, color 150ms, background 150ms;
+    cursor: pointer;
+    font-size: 13px;
+    color: #5b5b66;
 
     @media (hover: hover) {
         &:hover {
+            background: rgba(79, 70, 229, 0.04);
             border-color: #4f46e5;
             color: #4f46e5;
-            background: rgba(79, 70, 229, 0.04);
         }
     }
 }
 
 .mw-ce__footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
     padding: 10px 12px;
-    border-top: 1px solid #ebebef;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    border-top: 1px solid #ebebef;
 }
 
 .mw-ce__footer-left {
@@ -459,13 +459,13 @@
     all: unset;
     box-sizing: border-box;
     padding: 7px 12px;
+    border: 1px solid #e5e5ea;
+    border-radius: 7px;
+    transition: background 150ms;
+    cursor: pointer;
     font-size: 13px;
     font-weight: 500;
     color: #0f1115;
-    border: 1px solid #e5e5ea;
-    border-radius: 7px;
-    cursor: pointer;
-    transition: background 150ms;
 
     @media (hover: hover) {
         &:hover {
@@ -478,14 +478,14 @@
     all: unset;
     box-sizing: border-box;
     padding: 7px 12px;
-    font-size: 13px;
-    font-weight: 500;
-    color: #ffffff;
     background-color: #0f1115;
     border: 1px solid #0f1115;
     border-radius: 7px;
-    cursor: pointer;
     transition: background 150ms;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: #ffffff;
 
     &:disabled {
         background-color: #bdbdc7;
@@ -503,26 +503,26 @@
 
 // Bookmark update screen
 .mw-ce__updater-info {
-    font-size: 14px;
-    color: #3f3f4a;
-    line-height: 1.5;
     margin-bottom: 0;
-    padding: 0 4px 8px;   
+    padding: 0 4px 8px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #3f3f4a;
 }
 
 .mw-ce__updater-url {
     width: 100%;
+    height: 140px;
     padding: 10px 12px;
-    font-size: 12px;
-    color: #0f1115;
     background-color: #f7f7f9;
     border: 1px solid #e5e5ea;
     border-radius: 8px;
-    resize: none;
-    word-break: break-all;
-    white-space: pre-wrap;
+    font-size: 12px;
     line-height: 1.5;
-    height: 140px;
+    color: #0f1115;
+    white-space: pre-wrap;
+    word-break: break-all;
+    resize: none;
 
     &:focus {
         outline: none;
@@ -534,19 +534,19 @@
 .mw-ce__updater-copy-btn {
     all: unset;
     box-sizing: border-box;
-    display: block;
     width: 100%;
-    padding: 10px;
     margin-top: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    color: #0f1115;
+    padding: 10px;
+    display: block;
     background-color: #f4f4f7;
     border: 1px solid #e5e5ea;
     border-radius: 8px;
-    cursor: pointer;
-    text-align: center;
     transition: background 120ms, border-color 120ms, color 120ms;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: #0f1115;
+    text-align: center;
 
     @media (hover: hover) {
         &:hover {
