@@ -18,16 +18,18 @@ On first use, Cookie Manager will start with three example cookies. Use the gear
 
 - **In-browser cookie configuration** - add, edit and remove tracked cookies without editing any source files (see [Cookie Editor](#cookie-editor)).
 - **Portable config** - your cookie list is embedded directly in the bookmark URL. It works on every domain, in incognito windows, and in any browser where you save the bookmark - no server, no file, no import step.
-- Correctly matches your configured cookies against live browser cookies and displays the current value in real-time, or "No cookie" if absent.
+- Correctly matches your configured cookies against live browser cookies and shows `● set` / `not set` status per row in real-time.
+- Active preset value is highlighted in the pill row so you can see the current state at a glance.
 - Set a cookie to any of its predefined values with a single click.
 - Remove individual cookies or delete all managed cookies at once.
 - Refresh the page without closing Cookie Manager.
 - Only one instance of Cookie Manager can be open at a time.
 - Dark overlay covering the page while Cookie Manager is open.
 - Desktop and mobile view.
-- Hovering over "Cookie Manager" in the header shows the app version.
+- Footer shows the number of tracked cookies and the app version.
+- Hovering over "Cookie Manager" in the header shows the full app version.
 - Hovering over header buttons shows a description of what they do.
-- Hovering over a cookie name shows its description (if one was provided).
+- Click the **i** button next to a cookie's status to reveal its description (if one was provided). Multiple rows can be open at the same time.
 
 ## Cookie Editor
 
@@ -38,12 +40,12 @@ Each cookie entry has three fields:
 | Field | Description |
 |---|---|
 | **Name** | The actual browser cookie name. No spaces, semicolons, commas, or `=` allowed. |
-| **Description** | Optional tooltip shown when hovering the cookie name in the main panel. |
+| **Note** | Optional description revealed in the main panel when the **i** button is clicked next to that cookie's row. |
 | **Values** | One or more preset values shown as pills. Press **Enter** to add a new value; click **×** to remove one. |
 
-Use **+ Add cookie** to append a new entry. Use **Delete cookie** to remove one. **Drag the grip handle** (⠿) on the left side of an entry to reorder cookies. Click **Cancel** or press **Escape** to discard changes.
+Use **+ Add cookie** to append a new entry (it appears highlighted in indigo to mark it as new). To remove an entry click **Delete cookie** — an inline confirmation row appears; click **Delete** again to confirm or **Cancel** to dismiss. **Drag the grip handle** on the left side of an entry to reorder cookies. Click **Cancel** or press **Escape** to discard all changes.
 
-Clicking **Accept** re-renders the main panel with the new config for the current session and then shows a **"Update your bookmark"** screen with a new `javascript:` URL containing your config embedded in the code. Copy that URL and replace your bookmark with it — the new bookmark will carry your config everywhere.
+The header shows an **Unsaved** badge and the footer shows `· unsaved changes` as soon as you make any edit. **Accept** is disabled until at least one change has been made. Clicking **Accept** re-renders the main panel with the new config for the current session and then shows a **"Update your bookmark"** screen with a new `javascript:` URL containing your config embedded in the code. Copy that URL and replace your bookmark with it — the new bookmark will carry your config everywhere.
 
 The bookmarklet is self-replicating: every generated URL is a complete, standalone copy of the app with your config baked in, and that copy can generate further updated URLs the same way.
 
@@ -74,7 +76,7 @@ Cookie Manager intentionally uses minimal base styling so it inherits fonts and 
 
 ### Versioning
 
-Update the version in `package.json`. It is automatically read and displayed in the Cookie Manager header tooltip.
+Update the version in `package.json`. It is automatically read and displayed in the Cookie Manager header tooltip and in the panel footer.
 
 ### Build output
 
