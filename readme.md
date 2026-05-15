@@ -73,6 +73,30 @@ Cookie Manager intentionally uses minimal base styling so it inherits fonts and 
 | `npm run ts` | TypeScript check only (`tsc --noEmit`) |
 | `npm run lint` | ESLint only |
 | `npm run css` | Compile `styles.scss` → `styles.css` as a standalone file (for inspection only - not used by the build) |
+| `npm test` | Run the unit test suite once |
+| `npm run test:watch` | Run tests in watch mode |
+
+### Tests
+
+Unit tests use [Vitest](https://vitest.dev/) with jsdom. Test files live in `src/__tests__/` and mirror the source structure:
+
+```
+src/__tests__/
+├── setup.ts                    Global afterEach cleanup; jsdom stubs for scrollIntoView, DataTransfer, DragEvent
+├── App.test.ts                 Integration — IIFE rendering, footer count, flash behaviour
+├── utils/
+│   ├── escapeHtml.test.ts
+│   ├── cookieUtils.test.ts
+│   ├── siteCookies.test.ts
+│   └── cookieStorage.test.ts
+└── components/
+    ├── ItemBtns.test.ts        addCookie, deleteCookie, itemButtons
+    ├── ItemInfo.test.ts        showCookieValue, itemInfo
+    ├── HeaderActions.test.ts   closeCookieManager, deleteAllCookies, refresh
+    ├── validateCookies.test.ts collectAndValidate — all validation rules
+    ├── dragReorder.test.ts     setupDragReorder — DOM reorder, indicator classes
+    └── CookieEditor.test.ts    Full editor — open, dirty state, cancel, accept, CRUD, pills, clipboard
+```
 
 ### Versioning
 
