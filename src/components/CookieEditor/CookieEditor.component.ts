@@ -13,6 +13,7 @@ function createEl<K extends keyof HTMLElementTagNameMap>(tag: K, className?: str
 function buildPill(value: string): HTMLDivElement {
     const pill = createEl('div', 'mw-ce__pill');
     pill.dataset.value = value;
+    pill.title = value;
 
     const text = createEl('span', 'mw-ce__pill-text');
     text.textContent = value;
@@ -171,31 +172,33 @@ export function openCookieEditor(onSave: () => void): void {
     unsavedBadge.textContent = 'Unsaved';
     unsavedBadge.style.display = 'none';
     headerLeft.append(title, unsavedBadge);
+    const addCookieBtn = createEl('button', 'mw-ce__header-add-btn');
+    addCookieBtn.type = 'button';
+    addCookieBtn.title = 'Add cookie';
+    addCookieBtn.setAttribute('aria-label', 'Add cookie');
+    addCookieBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg>';
     const closeBtn = createEl('button', 'mw-ce__close-btn');
     closeBtn.type = 'button';
+    closeBtn.title = 'Close editor';
     closeBtn.setAttribute('aria-label', 'Close editor');
     closeBtn.innerHTML = `
         <svg width="14" height="14" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M27.9808 2.01923L2.01929 27.9808" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M2.01929 2.01923L27.9808 27.9808" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>`;
-    header.append(headerLeft, closeBtn);
+    header.append(headerLeft, addCookieBtn, closeBtn);
 
     // Body
     let entryUid = 0;
     const body = createEl('div', 'mw-ce__body');
     loadCookies().forEach((cookie) => body.appendChild(buildEntry(cookie, ++entryUid)));
 
-    const addCookieBtn = createEl('button', 'mw-ce__add-cookie-btn');
-    addCookieBtn.type = 'button';
-    addCookieBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg> Add cookie';
     addCookieBtn.addEventListener('click', () => {
         const entry = buildEntry({ name: '', values: [], description: '' }, ++entryUid, { isNew: true });
-        body.insertBefore(entry, addCookieBtn);
+        body.prepend(entry);
         entry.querySelector<HTMLInputElement>('.mw-ce__input--name')?.focus();
         entry.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
-    body.appendChild(addCookieBtn);
     setupDragReorder(body);
 
     // Footer
