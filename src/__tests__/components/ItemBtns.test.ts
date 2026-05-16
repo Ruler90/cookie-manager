@@ -144,4 +144,34 @@ describe('itemButtons', () => {
         expect(btns[0]?.dataset.value).toBe('foo');
         expect(btns[1]?.dataset.value).toBe('bar');
     });
+
+    it('renders an unmanaged pill when currentValue is not in the configured list', () => {
+        const div = document.createElement('div');
+        div.innerHTML = itemButtons(['enabled', 'disabled'], 'true');
+        expect(div.querySelector('.mw-cm-item__btn--unmanaged')?.textContent).toBe('true');
+    });
+
+    it('does not render an unmanaged pill when currentValue is empty string', () => {
+        const div = document.createElement('div');
+        div.innerHTML = itemButtons(['enabled', 'disabled'], '');
+        expect(div.querySelector('.mw-cm-item__btn--unmanaged')).toBeNull();
+    });
+
+    it('does not render an unmanaged pill when currentValue is null', () => {
+        const div = document.createElement('div');
+        div.innerHTML = itemButtons(['enabled', 'disabled'], null);
+        expect(div.querySelector('.mw-cm-item__btn--unmanaged')).toBeNull();
+    });
+
+    it('does not render an unmanaged pill when currentValue is a configured option', () => {
+        const div = document.createElement('div');
+        div.innerHTML = itemButtons(['enabled', 'disabled'], 'enabled');
+        expect(div.querySelector('.mw-cm-item__btn--unmanaged')).toBeNull();
+    });
+
+    it('escapes HTML in the unmanaged pill value', () => {
+        const html = itemButtons(['a'], '<script>xss</script>');
+        expect(html).not.toContain('<script>');
+        expect(html).toContain('&lt;script&gt;');
+    });
 });

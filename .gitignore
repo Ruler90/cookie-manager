@@ -2,3 +2,4 @@ node_modules/
 dist/bookmarklet-template.js
 .DS_Store
 *.local
+design/

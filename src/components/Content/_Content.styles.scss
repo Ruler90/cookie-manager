@@ -88,6 +88,11 @@
         font-weight: 500;
         color: #4f46e5;
     }
+
+    &--other {
+        font-weight: 500;
+        color: #c2410c;
+    }
 }
 
 .mw-cm-item__info {
@@ -173,6 +178,19 @@
             box-shadow: 0 1px 0 rgba(79, 70, 229, 0.25);
             color: #fff;
         }
+    }
+
+    &--unmanaged {
+        max-width: 100%;
+        padding: 6px 9px;
+        background: #fff7ed;
+        border: 1px solid #fdba74;
+        border-radius: 6px;
+        font-size: 13px;
+        line-height: 1.25;
+        color: #9a3412;
+        cursor: default;
+        overflow-wrap: anywhere;
     }
 
     &--remove {

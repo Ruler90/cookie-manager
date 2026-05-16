@@ -43,15 +43,15 @@ import { openCookieEditor } from './components/CookieEditor/CookieEditor.compone
             cookieNodes.set(devCookie.name, cookieManagerItem);
             cookieManagerItem.classList.add('mw-cm-item');
             cookieManagerItem.innerHTML =
-                itemInfo(devCookie.name, cookieValue, devCookie.description) + itemButtons(devCookie.values, cookieValue);
+                itemInfo(devCookie.name, cookieValue, devCookie.description, devCookie.values) + itemButtons(devCookie.values, cookieValue);
             cookieManagerItem.querySelectorAll('.mw-cm-item__btn--add').forEach((btn, index) => {
                 btn.addEventListener('click', () =>
-                    addCookie(devCookie.name, devCookie.values[index] ?? '', cookieManagerItem),
+                    addCookie(devCookie.name, devCookie.values[index] ?? '', cookieManagerItem, devCookie.values),
                 );
             });
             cookieManagerItem
                 .querySelector('.mw-cm-item__btn--remove')
-                ?.addEventListener('click', () => deleteCookie(devCookie.name, cookieManagerItem));
+                ?.addEventListener('click', () => deleteCookie(devCookie.name, cookieManagerItem, devCookie.values));
             const infoBtn = cookieManagerItem.querySelector<HTMLButtonElement>('.js-mw-cm-item-info');
             infoBtn?.addEventListener('click', () => {
                 const isOpen = cookieManagerItem.classList.toggle('is-open');
