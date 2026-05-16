@@ -266,8 +266,13 @@
     border-radius: 4px;
     font-size: 13px;
     color: #3f3f4a;
+}
+
+.mw-ce__pill-text {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
-    overflow-wrap: anywhere;
 }
 
 .mw-ce__pill-remove {

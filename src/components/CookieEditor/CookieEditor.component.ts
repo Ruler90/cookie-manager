@@ -13,6 +13,7 @@ function createEl<K extends keyof HTMLElementTagNameMap>(tag: K, className?: str
 function buildPill(value: string): HTMLDivElement {
     const pill = createEl('div', 'mw-ce__pill');
     pill.dataset.value = value;
+    pill.title = value;
 
     const text = createEl('span', 'mw-ce__pill-text');
     text.textContent = value;
