@@ -4,8 +4,8 @@ Customizable Cookie Manager for development purposes - configure which cookies t
 Cookie Manager runs as a Bookmarklet (a browser bookmark that executes JavaScript) so you can quickly launch it on any page.
 
 <div align="center">
-  <img src="cookie-manager-v2.png" alt="Cookie Manager v2 screenshot">
-  <img src="cookie-manager-editor-v2.png" alt="Cookie Manager v2 Editor screenshot">
+  <img src="cookie-manager-v2a.png" alt="Cookie Manager v2 screenshot">
+  <img src="cookie-manager-editor-v2a.png" alt="Cookie Manager v2 Editor screenshot">
 </div>
 
 
