@@ -211,7 +211,7 @@ describe('adding a cookie entry', () => {
         openCookieEditor(vi.fn());
         const before = document.querySelectorAll('.mw-ce__entry').length;
 
-        document.querySelector<HTMLButtonElement>('.mw-ce__add-cookie-btn')!.click();
+        document.querySelector<HTMLButtonElement>('.mw-ce__header-add-btn')!.click();
         await Promise.resolve(); // flush MutationObserver microtask
 
         expect(document.querySelectorAll('.mw-ce__entry').length).toBe(before + 1);
@@ -219,17 +219,17 @@ describe('adding a cookie entry', () => {
 
     it('the new entry has an empty name input', async () => {
         openCookieEditor(vi.fn());
-        document.querySelector<HTMLButtonElement>('.mw-ce__add-cookie-btn')!.click();
+        document.querySelector<HTMLButtonElement>('.mw-ce__header-add-btn')!.click();
         await Promise.resolve();
 
         const entries = document.querySelectorAll('.mw-ce__entry');
-        const lastEntry = entries[entries.length - 1]!;
-        expect(lastEntry.querySelector<HTMLInputElement>('.mw-ce__input--name')?.value).toBe('');
+        const newEntry = entries[0]!;
+        expect(newEntry.querySelector<HTMLInputElement>('.mw-ce__input--name')?.value).toBe('');
     });
 
     it('adding a cookie marks the editor dirty', async () => {
         openCookieEditor(vi.fn());
-        document.querySelector<HTMLButtonElement>('.mw-ce__add-cookie-btn')!.click();
+        document.querySelector<HTMLButtonElement>('.mw-ce__header-add-btn')!.click();
         await Promise.resolve();
 
         expect(getAcceptBtn().disabled).toBe(false);

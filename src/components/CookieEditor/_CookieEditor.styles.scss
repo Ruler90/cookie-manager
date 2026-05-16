@@ -17,7 +17,10 @@
     overflow: hidden;
     background-color: #fff;
     border-radius: 14px;
-    box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 8px 24px rgba(0,0,0,.12), 0 0 0 1px rgba(0,0,0,.06);
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.08),
+        0 8px 24px rgba(0, 0, 0, 0.12),
+        0 0 0 1px rgba(0, 0, 0, 0.06);
     transform: translate(-50%, -50%);
 
     * {
@@ -38,11 +41,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
+    gap: 12px;
     border-bottom: 1px solid #ebebef;
 }
 
 .mw-ce__header-left {
+    flex: 1;
     min-width: 0;
     display: flex;
     align-items: center;
@@ -75,14 +79,15 @@
     align-items: center;
     justify-content: center;
     border-radius: 6px;
-    transition: background-color 150ms, color 150ms, transform 400ms;
+    transition:
+        background-color 150ms,
+        color 150ms,
+        transform 400ms;
     cursor: pointer;
     color: #5b5b66;
 
     &:hover {
-        background-color: #f3f3f5;
         transform: rotate(-180deg);
-        color: #0f1115;
     }
 }
 
@@ -124,7 +129,11 @@
     background: #fff;
     border: 1px solid #ebebef;
     border-radius: 10px;
-    transition: opacity 150ms, border-color 150ms, box-shadow 150ms, background 150ms;
+    transition:
+        opacity 150ms,
+        border-color 150ms,
+        box-shadow 150ms,
+        background 150ms;
 
     &--new {
         background: rgba(79, 70, 229, 0.04);
@@ -200,7 +209,9 @@
     background-color: #fff;
     border: 1px solid #e5e5ea;
     border-radius: 6px;
-    transition: border-color 150ms, box-shadow 150ms;
+    transition:
+        border-color 150ms,
+        box-shadow 150ms;
     font-size: 13px;
     color: #0f1115;
 
@@ -242,7 +253,9 @@
     background-color: #fff;
     border: 1px solid #e5e5ea;
     border-radius: 6px;
-    transition: border-color 150ms, box-shadow 150ms;
+    transition:
+        border-color 150ms,
+        box-shadow 150ms;
     cursor: text;
 
     &:focus-within {
@@ -344,7 +357,9 @@
     padding: 4px 6px;
     background: transparent;
     border-radius: 5px;
-    transition: color 120ms, background 120ms;
+    transition:
+        color 120ms,
+        background 120ms;
     cursor: pointer;
     font-size: 13px;
     color: #94949f;
@@ -414,29 +429,29 @@
     }
 }
 
-.mw-ce__add-cookie-btn {
+.mw-ce__header-add-btn {
     all: unset;
     box-sizing: border-box;
-    width: 100%;
-    padding: 9px;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    background: transparent;
-    border: 1px dashed #d4d4d8;
-    border-radius: 8px;
-    transition: border-color 150ms, color 150ms, background 150ms;
+    border-radius: 6px;
+    transition: background-color 150ms;
     cursor: pointer;
-    font-size: 13px;
-    color: #5b5b66;
+    background-color: #0f1115;
+    color: #fff;
 
     @media (hover: hover) {
-        &:hover {
-            background: rgba(79, 70, 229, 0.04);
-            border-color: #4f46e5;
-            color: #4f46e5;
+        &:hover svg {
+            transform: rotate(-180deg);
         }
+    }
+
+    & svg {
+        transition: transform 400ms;
     }
 }
 
@@ -546,7 +561,10 @@
     background-color: #f4f4f7;
     border: 1px solid #e5e5ea;
     border-radius: 8px;
-    transition: background 120ms, border-color 120ms, color 120ms;
+    transition:
+        background 120ms,
+        border-color 120ms,
+        color 120ms;
     cursor: pointer;
     font-size: 13px;
     font-weight: 500;
