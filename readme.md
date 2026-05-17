@@ -57,6 +57,31 @@ The bookmarklet is self-replicating: every generated URL is a complete, standalo
 
 On first use (before any config has been saved), Cookie Manager starts with three placeholder cookies as a starting point.
 
+## Transferring custom cookies
+
+If you have an existing set of cookies you want to carry into a freshly generated bookmarklet, there are two approaches depending on how you use Cookie Manager.
+
+### Bookmarklet to bookmarklet (no repo access needed)
+
+The cookie config is stored as a compact JSON array in the `_C` variable at the very start of the bookmarklet URL:
+
+```
+javascript:(()=>{const _C=[...YOUR COOKIES...];const _S="...APP CODE...";...})()
+```
+
+`_C` and `_S` are independent — `_C` is your cookie data, `_S` is the app code. To migrate:
+
+1. Open your old bookmarklet in a text editor (e.g. from the browser's bookmark manager).
+2. Copy everything from `_C=` up to and including the matching `]`.
+3. Open your new bookmarklet and replace its `_C=[...]` with the one you copied.
+4. Save the modified URL as your bookmark.
+
+> **Note:** this only works when the cookie object structure has not changed between versions. The structure (`name`, `values`, `description`) has remained stable across all releases to date.
+
+### Repo fork or local build
+
+If you own a fork or are building locally, populate [`src/config/defaultCookies.json`](src/config/defaultCookies.json) with your cookies before running `npm run build`. That file is the source of truth embedded into every fresh build, so your cookies will be baked into the generated bookmarklet automatically.
+
 ## Development
 
 - Works with Node `22.15.0`
