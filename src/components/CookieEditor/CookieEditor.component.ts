@@ -3,6 +3,7 @@ import { loadCookies, updateCookies, generateBookmarkletUrl } from '../../utils/
 import { escapeHtml } from '../../utils/escapeHtml';
 import { setupDragReorder } from './dragReorder';
 import { collectAndValidate } from './validateCookies';
+import editorStyles from './_CookieEditor.styles.scss?inline';
 
 function createEl<K extends keyof HTMLElementTagNameMap>(tag: K, className?: string): HTMLElementTagNameMap[K] {
     const element = document.createElement(tag);
@@ -161,6 +162,9 @@ function buildEntry(cookie: devCookie, uid: number, options: { isNew?: boolean }
 
 export function openCookieEditor(onSave: () => void): void {
     const overlay = createEl('div', 'mw-ce-overlay');
+    const styleEl = document.createElement('style');
+    styleEl.textContent = editorStyles;
+    overlay.appendChild(styleEl);
     const panel = createEl('div', 'mw-ce');
 
     // Header

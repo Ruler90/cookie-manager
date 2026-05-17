@@ -7,6 +7,8 @@ import { loadCookies } from './utils/cookieStorage';
 import { itemInfo } from './components/Content/ItemInfo.component';
 import { itemButtons, addCookie, deleteCookie } from './components/Content/ItemBtns.component';
 import { openCookieEditor } from './components/CookieEditor/CookieEditor.component';
+// __FIREFOX__ is a compile-time constant injected by Vite; the CookieEditor import above
+// is fully tree-shaken out of the Firefox build because all its references are in dead code.
 
 (() => {
     const existing = document.querySelector<HTMLElement>('.mw-cookie-manager');
@@ -72,7 +74,9 @@ import { openCookieEditor } from './components/CookieEditor/CookieEditor.compone
         cookieManagerStyles.textContent = styles;
         cookieManager.appendChild(cookieManagerStyles);
         cookieManager.querySelector('.mw-cm__header-remove-btn')?.addEventListener('click', () => deleteAllCookies(cookieNodes));
-        cookieManager.querySelector('.mw-cm__header-settings-btn')?.addEventListener('click', () => openCookieEditor(renderItems));
+        if (!__FIREFOX__) {
+            cookieManager.querySelector('.mw-cm__header-settings-btn')?.addEventListener('click', () => openCookieEditor(renderItems));
+        }
         cookieManager.querySelector('.mw-cm__header-refresh-btn')?.addEventListener('click', () => refresh());
         cookieManager.querySelector('.mw-cm__header-close-btn')?.addEventListener('click', () => closeCookieManager());
         document.body.appendChild(cookieManager);
