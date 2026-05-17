@@ -28,6 +28,7 @@ On first use, Cookie Manager will start with three example cookies. Use the gear
 - Active preset value is highlighted in the pill row so you can see the current state at a glance.
 - Set a cookie to any of its predefined values with a single click.
 - Remove individual cookies or delete all managed cookies at once.
+- Cookies are set as **session cookies** (no `Expires` or `Max-Age` attribute) and are cleared when the browser session ends. This is intentional for development use.
 - Refresh the page without closing Cookie Manager.
 - Only one instance of Cookie Manager can be open at a time.
 - Dark overlay covering the page while Cookie Manager is open.
@@ -82,6 +83,32 @@ javascript:(()=>{const _C=[...YOUR COOKIES...];const _S="...APP CODE...";...})()
 
 If you own a fork or are building locally, populate [`src/config/defaultCookies.json`](src/config/defaultCookies.json) with your cookies before running `npm run build`. That file is the source of truth embedded into every fresh build, so your cookies will be baked into the generated bookmarklet automatically.
 
+## Firefox
+
+Firefox limits `javascript:` bookmark URLs to roughly **64 KB**. The standard bookmarklet (`dist/bookmarklet.js`) weighs ~68 KB and will be silently truncated on install.
+
+The size comes from two sources: the app code itself (~34 KB), plus a second copy of that code stored as a string so the Cookie Editor can regenerate the bookmark URL. Both copies together push the URL past the limit, and the total grows as you add more cookies to your config.
+
+A dedicated Firefox build is available at `dist/bookmarklet-firefox.js` (~15 KB). Install it the same way as the standard bookmarklet. The only difference is that the **Cookie Editor is not included** — because the app no longer needs to regenerate its own URL, the second code copy is dropped entirely, cutting the size by more than half.
+
+To generate it locally:
+
+```bash
+npm run build:firefox
+```
+
+### Updating cookie config in Firefox
+
+Without the editor, update your config by editing the bookmark URL directly in the browser's bookmark manager. The cookie config is the JSON array right after `__CM_CONFIG__=`:
+
+```
+javascript:(()=>{window.__CM_CONFIG__=[...YOUR COOKIES...];...})()
+```
+
+Replace the array with your new config — the object structure (`name`, `values`, `description`) is the same as the `_C` array in the full bookmarklet (see [Transferring custom cookies](#transferring-custom-cookies) for the format and migration steps).
+
+If you have a local build, the simpler route is to update [`src/config/defaultCookies.json`](src/config/defaultCookies.json) and run `npm run build:firefox`.
+
 ## Development
 
 - Works with Node `22.15.0`
@@ -100,6 +127,7 @@ Cookie Manager intentionally uses minimal base styling so it inherits fonts and 
 |---|---|
 | `npm run dev` | Start Vite dev server |
 | `npm run build` | Type-check, lint, and produce `dist/bookmarklet.js` |
+| `npm run build:firefox` | Type-check, lint, and produce `dist/bookmarklet-firefox.js` (Firefox-compatible, ~15 KB) |
 | `npm run check` | Run TypeScript and ESLint checks only |
 | `npm run ts` | TypeScript check only (`tsc --noEmit`) |
 | `npm run lint` | ESLint only |
@@ -135,7 +163,9 @@ Update the version in `package.json`. It is automatically read and displayed in 
 
 ### Build output
 
-`npm run build` runs the full check suite and then produces `dist/bookmarklet.js` - a single minified IIFE prefixed with `javascript:`, ready to paste as a bookmark URL. The build will fail on any TypeScript or lint errors.
+`npm run build` runs the full check suite and then produces `dist/bookmarklet.js` — a single minified IIFE prefixed with `javascript:`, ready to paste as a bookmark URL. The build will fail on any TypeScript or lint errors.
+
+`npm run build:firefox` produces `dist/bookmarklet-firefox.js` using the same entry point but with the `--mode firefox` flag. The CookieEditor and its styles are excluded via a compile-time `__FIREFOX__` constant and Rollup tree-shaking. Both output files can coexist in `dist/` — each build writes only its own file and leaves the other untouched.
 
 `public/bookmarklet-template.js` is a dev-only file loaded by `index.html` so the "Update your bookmark" flow works during `npm run dev`. A placeholder is committed so fresh clones don't 404. Because Vite copies everything in `public/` to `dist/` during the build, a copy also appears in `dist/` - it can be ignored, the only meaningful output is `dist/bookmarklet.js`.
 
