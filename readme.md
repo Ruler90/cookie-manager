@@ -18,7 +18,7 @@ To use Cookie Manager, simply:
 3. Create a new bookmark in your browser and paste the code as the URL.
 4. Click the bookmark on any page.
 
-On first use, Cookie Manager will start with three example cookies. Use the gear icon to configure your own cookies (see [Cookie Editor](#cookie-editor)).
+On first use, Cookie Manager will start with example cookies. Use the gear icon to configure your own cookies (see [Cookie Editor](#cookie-editor)).
 
 ## Features
 
@@ -34,7 +34,6 @@ On first use, Cookie Manager will start with three example cookies. Use the gear
 - Dark overlay covering the page while Cookie Manager is open.
 - Desktop and mobile view.
 - Footer shows the number of tracked cookies and the app version.
-- Hovering over "Cookie Manager" in the header shows the full app version.
 - Hovering over header buttons shows a description of what they do.
 - Click the **i** button next to a cookie's status to reveal its description (if one was provided). Multiple rows can be open at the same time.
 
